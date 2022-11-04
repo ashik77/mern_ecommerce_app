@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import userRoute from "./src/routers/user.router.js";
+//import userRoute from "./src/routers/auth.router.js";
+import authRoute from "./src/routers/auth.router.js";
 // import memoryRoute from "./src/routers/memory.router.js";
 
 dotenv.config({ path: ".env" });
@@ -16,7 +17,7 @@ app.use(express.json());
 // app.use(cors());
 
 // //app.use("/api/v1", postRoute);
-app.use("/api/v1", userRoute);
+app.use("/api/v1/auth", authRoute);
 // app.use("/api/v1/memory", memoryRoute);
 
 export default app;
