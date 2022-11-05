@@ -6,12 +6,7 @@ import Product from "./pages/Product";
 import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   const loggedUser = false;
