@@ -1,13 +1,28 @@
 import express from "express";
 
+import {
+  createProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updateProduct,
+} from "../controllers/product.controller.js";
+
+import {
+  verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+} from "../middleware/verifyToken.js";
+
 const router = express.Router();
 
-router.get("/usertest", (req, res) => {
-  res.send("user test success");
-});
+router.post("/", verifyTokenAndAdmin, createProduct);
 
-// router.post("/users/signin", signIn);
+router.put("/:id", verifyTokenAndAdmin, updateProduct);
 
-// router.post("/users/googlelogin", googleLogin);
+router.delete("/:id", verifyTokenAndAdmin, deleteProduct);
+
+router.get("/find/:id", getProduct);
+
+router.get("/", getProducts);
 
 export default router;
