@@ -1,13 +1,32 @@
 import express from "express";
 
+import {
+  createOrder,
+  deleteOrder,
+  getIncome,
+  getOrder,
+  getOrders,
+  updateOrder,
+} from "../controllers/order.controller.js";
+
+import {
+  verifyToken,
+  verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+} from "../middleware/verifyToken.js";
+
 const router = express.Router();
 
-router.get("/usertest", (req, res) => {
-  res.send("user test success");
-});
+router.post("/", verifyToken, createOrder);
 
-// router.post("/users/signin", signIn);
+router.put("/:id", verifyTokenAndAdmin, updateOrder);
 
-// router.post("/users/googlelogin", googleLogin);
+router.delete("/:id", verifyTokenAndAdmin, deleteOrder);
+
+router.get("/find/:userId", verifyTokenAndAuthorization, getOrder);
+
+router.get("/", verifyTokenAndAdmin, getOrders);
+
+router.get("/income", verifyTokenAndAdmin, getIncome);
 
 export default router;
