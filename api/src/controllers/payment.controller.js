@@ -1,4 +1,7 @@
-import stripe from "stripe";
+const KEY = process.env.STRIPE_KEY;
+//import stripe from "stripe";
+import { loadStripe } from "@stripe/stripe-js";
+const stripe = await loadStripe(KEY);
 
 export const payment = (req, res) => {
   stripe.charges.create(
