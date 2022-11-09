@@ -13,6 +13,7 @@ import Login from "./pages/login/Login";
 import "./app.css";
 
 function App() {
+  //const admin = true;
   const admin = useSelector((state) => state.user.currentUser.isAdmin);
   //console.log(admin);
   return (
