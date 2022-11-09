@@ -1,15 +1,38 @@
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import { useEffect, useState } from "react";
+import { userRequest } from "../../axiosRequests";
+
 import "./featuredInfo.css";
 
 const FeaturedInfo = () => {
+  const [income, setIncome] = useState([]);
+  const [perc, setPerc] = useState(0);
+
+  useEffect(() => {
+    const getIncome = async () => {
+      try {
+        const res = await userRequest.get("orders/income");
+        setIncome(res.data);
+        setPerc((res.data[1].total * 100) / res.data[0].total - 100);
+      } catch {}
+    };
+    getIncome();
+  }, []);
+
+  //console.log(income);
   return (
     <div className="featured">
       <div className="featuredItem">
         <span className="featuredTitle">Revenue</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">€5,415</span>
+          <span className="featuredMoney">€{income[1]?.total}</span>
           <span className="featuredMoneyRate">
-            -15.4 <ArrowDownward className="featuredIcon negative" />
+            %{Math.floor(perc)}{" "}
+            {perc < 0 ? (
+              <ArrowDownward className="featuredIcon negative" />
+            ) : (
+              <ArrowUpward className="featuredIcon" />
+            )}
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
@@ -17,9 +40,9 @@ const FeaturedInfo = () => {
       <div className="featuredItem">
         <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">€5,456</span>
+          <span className="featuredMoney">€4,415</span>
           <span className="featuredMoneyRate">
-            -2.6 <ArrowDownward className="featuredIcon negative" />
+            -1.4 <ArrowDownward className="featuredIcon negative" />
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
@@ -27,9 +50,9 @@ const FeaturedInfo = () => {
       <div className="featuredItem">
         <span className="featuredTitle">Cost</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">€2,675</span>
+          <span className="featuredMoney">€2,225</span>
           <span className="featuredMoneyRate">
-            +2.9 <ArrowUpward className="featuredIcon" />
+            +2.4 <ArrowUpward className="featuredIcon" />
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
